@@ -6,7 +6,7 @@ import { Card } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { vehicleMockData, propertyMockData, personMockData } from "@/data/mockData";
-import { Entity, EntityType, Vehicle, Property, Person } from "@/types/comparison";
+import { Entity, EntityType } from "@/types/comparison";
 import TagBadge from "@/components/TagBadge";
 import { toast } from "sonner";
 
@@ -55,6 +55,153 @@ const Index = () => {
     navigate(`/compare?ids=${selectedIds.join(',')}`);
   };
 
+  // Render vehicle card with proper type safety
+  const renderVehicleCard = (vehicle: Entity) => {
+    if (vehicle.type !== 'vehicle') return null;
+    return (
+      <Card key={vehicle.id} className="overflow-hidden border">
+        <div className="relative">
+          <div className="absolute top-3 left-3 z-10">
+            <Checkbox 
+              checked={selectedItems[vehicle.id] || false}
+              onCheckedChange={() => toggleItemSelection(vehicle.id)}
+              className="h-5 w-5 border-2 bg-white"
+            />
+          </div>
+          <div className="h-48 bg-gray-100">
+            <img 
+              src={vehicle.images[0] || "/placeholder.svg"}
+              alt={vehicle.name}
+              className="w-full h-full object-cover"
+            />
+          </div>
+        </div>
+        <div className="p-4">
+          <h3 className="font-semibold text-lg mb-1">{vehicle.name}</h3>
+          <div className="flex flex-wrap gap-1 mb-3">
+            {vehicle.tags.map((tag, i) => (
+              <TagBadge key={i} tag={tag} />
+            ))}
+          </div>
+          <div className="text-sm text-gray-600 space-y-1">
+            <div className="flex justify-between">
+              <span>Year:</span>
+              <span className="font-medium">{vehicle.year}</span>
+            </div>
+            <div className="flex justify-between">
+              <span>Mileage:</span>
+              <span className="font-medium">{vehicle.mileage.toLocaleString()} mi</span>
+            </div>
+            <div className="flex justify-between">
+              <span>Price:</span>
+              <span className="font-medium">${vehicle.price.toLocaleString()}</span>
+            </div>
+          </div>
+        </div>
+      </Card>
+    );
+  };
+
+  // Render property card with proper type safety
+  const renderPropertyCard = (property: Entity) => {
+    if (property.type !== 'property') return null;
+    return (
+      <Card key={property.id} className="overflow-hidden border">
+        <div className="relative">
+          <div className="absolute top-3 left-3 z-10">
+            <Checkbox 
+              checked={selectedItems[property.id] || false}
+              onCheckedChange={() => toggleItemSelection(property.id)}
+              className="h-5 w-5 border-2 bg-white"
+            />
+          </div>
+          <div className="h-48 bg-gray-100">
+            <img 
+              src={property.images[0] || "/placeholder.svg"}
+              alt={property.name}
+              className="w-full h-full object-cover"
+            />
+          </div>
+        </div>
+        <div className="p-4">
+          <h3 className="font-semibold text-lg mb-1">{property.name}</h3>
+          <div className="flex flex-wrap gap-1 mb-3">
+            {property.tags.map((tag, i) => (
+              <TagBadge key={i} tag={tag} />
+            ))}
+          </div>
+          <div className="text-sm text-gray-600 space-y-1">
+            <div className="flex justify-between">
+              <span>Price:</span>
+              <span className="font-medium">${property.price.toLocaleString()}</span>
+            </div>
+            <div className="flex justify-between">
+              <span>Size:</span>
+              <span className="font-medium">{property.bedrooms}BD/{property.bathrooms}BA, {property.squareFeet} sqft</span>
+            </div>
+            <div className="flex justify-between">
+              <span>Location:</span>
+              <span className="font-medium">{property.neighborhood}</span>
+            </div>
+          </div>
+        </div>
+      </Card>
+    );
+  };
+
+  // Render person card with proper type safety
+  const renderPersonCard = (person: Entity) => {
+    if (person.type !== 'person') return null;
+    return (
+      <Card key={person.id} className="overflow-hidden border">
+        <div className="relative">
+          <div className="absolute top-3 left-3 z-10">
+            <Checkbox 
+              checked={selectedItems[person.id] || false}
+              onCheckedChange={() => toggleItemSelection(person.id)}
+              className="h-5 w-5 border-2 bg-white"
+            />
+          </div>
+          <div className="h-48 bg-gray-100">
+            <img 
+              src={person.image || "/placeholder.svg"}
+              alt={person.name}
+              className="w-full h-full object-cover"
+            />
+          </div>
+        </div>
+        <div className="p-4">
+          <h3 className="font-semibold text-lg mb-1">{person.name}</h3>
+          <div className="flex flex-wrap gap-1 mb-3">
+            {person.tags.map((tag, i) => (
+              <TagBadge key={i} tag={tag} />
+            ))}
+          </div>
+          <div className="text-sm text-gray-600 space-y-1">
+            <div className="flex justify-between">
+              <span>Age:</span>
+              <span className="font-medium">{person.age}</span>
+            </div>
+            <div className="flex justify-between">
+              <span>Occupation:</span>
+              <span className="font-medium">{person.occupation}</span>
+            </div>
+            <div className="flex justify-between">
+              <span>Credit Score:</span>
+              <span className={`font-medium ${
+                person.creditScore >= 750 ? "text-green-600" : 
+                person.creditScore >= 650 ? "text-amber-600" : 
+                "text-red-600"
+              }`}>
+                {person.creditScore}
+              </span>
+            </div>
+          </div>
+        </div>
+      </Card>
+    );
+  };
+
   return (
     <div className="container mx-auto py-8 px-4">
       <div className="max-w-4xl mx-auto text-center mb-12">
@@ -100,150 +247,21 @@ const Index = () => {
           {/* Vehicle Tab */}
           <TabsContent value="vehicle" className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {vehicleMockData.map((vehicle) => (
-                <Card key={vehicle.id} className="overflow-hidden border">
-                  <div className="relative">
-                    <div className="absolute top-3 left-3 z-10">
-                      <Checkbox 
-                        checked={selectedItems[vehicle.id] || false}
-                        onCheckedChange={() => toggleItemSelection(vehicle.id)}
-                        className="h-5 w-5 border-2 bg-white"
-                      />
-                    </div>
-                    <div className="h-48 bg-gray-100">
-                      <img 
-                        src={vehicle.images[0] || "/placeholder.svg"}
-                        alt={vehicle.name}
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                  </div>
-                  <div className="p-4">
-                    <h3 className="font-semibold text-lg mb-1">{vehicle.name}</h3>
-                    <div className="flex flex-wrap gap-1 mb-3">
-                      {vehicle.tags.map((tag, i) => (
-                        <TagBadge key={i} tag={tag} />
-                      ))}
-                    </div>
-                    <div className="text-sm text-gray-600 space-y-1">
-                      <div className="flex justify-between">
-                        <span>Year:</span>
-                        <span className="font-medium">{vehicle.year}</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span>Mileage:</span>
-                        <span className="font-medium">{vehicle.mileage.toLocaleString()} mi</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span>Price:</span>
-                        <span className="font-medium">${vehicle.price.toLocaleString()}</span>
-                      </div>
-                    </div>
-                  </div>
-                </Card>
-              ))}
+              {vehicleMockData.map((vehicle) => renderVehicleCard(vehicle))}
             </div>
           </TabsContent>
           
           {/* Property Tab */}
           <TabsContent value="property" className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {propertyMockData.map((property) => (
-                <Card key={property.id} className="overflow-hidden border">
-                  <div className="relative">
-                    <div className="absolute top-3 left-3 z-10">
-                      <Checkbox 
-                        checked={selectedItems[property.id] || false}
-                        onCheckedChange={() => toggleItemSelection(property.id)}
-                        className="h-5 w-5 border-2 bg-white"
-                      />
-                    </div>
-                    <div className="h-48 bg-gray-100">
-                      <img 
-                        src={property.images[0] || "/placeholder.svg"}
-                        alt={property.name}
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                  </div>
-                  <div className="p-4">
-                    <h3 className="font-semibold text-lg mb-1">{property.name}</h3>
-                    <div className="flex flex-wrap gap-1 mb-3">
-                      {property.tags.map((tag, i) => (
-                        <TagBadge key={i} tag={tag} />
-                      ))}
-                    </div>
-                    <div className="text-sm text-gray-600 space-y-1">
-                      <div className="flex justify-between">
-                        <span>Price:</span>
-                        <span className="font-medium">${property.price.toLocaleString()}</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span>Size:</span>
-                        <span className="font-medium">{property.bedrooms}BD/{property.bathrooms}BA, {property.squareFeet} sqft</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span>Location:</span>
-                        <span className="font-medium">{property.neighborhood}</span>
-                      </div>
-                    </div>
-                  </div>
-                </Card>
-              ))}
+              {propertyMockData.map((property) => renderPropertyCard(property))}
             </div>
           </TabsContent>
           
           {/* People Tab */}
           <TabsContent value="person" className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {personMockData.map((person) => (
-                <Card key={person.id} className="overflow-hidden border">
-                  <div className="relative">
-                    <div className="absolute top-3 left-3 z-10">
-                      <Checkbox 
-                        checked={selectedItems[person.id] || false}
-                        onCheckedChange={() => toggleItemSelection(person.id)}
-                        className="h-5 w-5 border-2 bg-white"
-                      />
-                    </div>
-                    <div className="h-48 bg-gray-100">
-                      <img 
-                        src={person.image || "/placeholder.svg"}
-                        alt={person.name}
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                  </div>
-                  <div className="p-4">
-                    <h3 className="font-semibold text-lg mb-1">{person.name}</h3>
-                    <div className="flex flex-wrap gap-1 mb-3">
-                      {person.tags.map((tag, i) => (
-                        <TagBadge key={i} tag={tag} />
-                      ))}
-                    </div>
-                    <div className="text-sm text-gray-600 space-y-1">
-                      <div className="flex justify-between">
-                        <span>Age:</span>
-                        <span className="font-medium">{person.age}</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span>Occupation:</span>
-                        <span className="font-medium">{person.occupation}</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span>Credit Score:</span>
-                        <span className={`font-medium ${
-                          person.creditScore >= 750 ? "text-green-600" : 
-                          person.creditScore >= 650 ? "text-amber-600" : 
-                          "text-red-600"
-                        }`}>
-                          {person.creditScore}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </Card>
-              ))}
+              {personMockData.map((person) => renderPersonCard(person))}
             </div>
           </TabsContent>
         </Tabs>
