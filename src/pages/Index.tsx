@@ -5,7 +5,7 @@ import { Card } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { vehicleMockData, propertyMockData } from "@/data/mockData";
-import { Entity, EntityType } from "@/types/comparison";
+import { Entity, EntityType, Vehicle, Property } from "@/types/comparison";
 import TagBadge from "@/components/TagBadge";
 import { toast } from "sonner";
 import SearchReport from "@/components/SearchReport";
@@ -118,8 +118,7 @@ const Index = () => {
   };
 
   // Render vehicle card with proper type safety
-  const renderVehicleCard = (vehicle: Entity) => {
-    if (vehicle.type !== 'vehicle') return null;
+  const renderVehicleCard = (vehicle: Vehicle) => {
     return (
       <Card key={vehicle.id} className="overflow-hidden border">
         <div className="relative">
@@ -147,6 +146,10 @@ const Index = () => {
           </div>
           <div className="text-sm text-gray-600 space-y-1">
             <div className="flex justify-between">
+              <span>VIN:</span>
+              <span className="font-medium font-mono">{vehicle.vin}</span>
+            </div>
+            <div className="flex justify-between">
               <span>Year:</span>
               <span className="font-medium">{vehicle.year}</span>
             </div>
@@ -165,8 +168,7 @@ const Index = () => {
   };
 
   // Render property card with proper type safety
-  const renderPropertyCard = (property: Entity) => {
-    if (property.type !== 'property') return null;
+  const renderPropertyCard = (property: Property) => {
     return (
       <Card key={property.id} className="overflow-hidden border">
         <div className="relative">
@@ -302,7 +304,7 @@ const Index = () => {
                   </div>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {vehicleMockData.map((vehicle) => renderVehicleCard(vehicle))}
+                  {vehicleMockData.map((vehicle) => renderVehicleCard(vehicle as Vehicle))}
                 </div>
               </TabsContent>
               
@@ -323,7 +325,7 @@ const Index = () => {
                   </div>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {propertyMockData.map((property) => renderPropertyCard(property))}
+                  {propertyMockData.map((property) => renderPropertyCard(property as Property))}
                 </div>
               </TabsContent>
             </Tabs>

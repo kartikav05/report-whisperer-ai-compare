@@ -1,10 +1,11 @@
-import { Entity, QuestionnaireQuestion } from "../types/comparison";
+import { Entity, Vehicle, Property, QuestionnaireQuestion } from "@/types/comparison";
 
-export const vehicleMockData: Entity[] = [
+export const vehicleMockData: Vehicle[] = [
   {
     id: "v1",
     name: "2020 Toyota Camry XSE",
     type: "vehicle",
+    vin: "4T1C11AK5LU123456",
     make: "Toyota",
     model: "Camry",
     year: 2020,
@@ -14,8 +15,8 @@ export const vehicleMockData: Entity[] = [
     accidents: 0,
     majorRepairs: [],
     images: [
-      "https://images.unsplash.com/photo-1617469767053-3c4f2a6c1aa0?q=80&w=1470&auto=format",
-      "https://images.unsplash.com/photo-1617469767053-3c4f2a6c1aa0?q=80&w=1470&auto=format"
+      "https://shorturl.at/avqYs",
+      "https://shorturl.at/avqYs"
     ],
     tags: ["Low Mileage", "No Accidents", "Fuel Efficient"],
   },
@@ -23,6 +24,7 @@ export const vehicleMockData: Entity[] = [
     id: "v2",
     name: "2019 Honda Accord Sport",
     type: "vehicle",
+    vin: "1HGCV1F3XKA123456",
     make: "Honda",
     model: "Accord",
     year: 2019,
@@ -32,8 +34,8 @@ export const vehicleMockData: Entity[] = [
     accidents: 1,
     majorRepairs: [{ year: 2022, description: "Transmission repair" }],
     images: [
-      "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?q=80&w=1470&auto=format",
-      "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?q=80&w=1470&auto=format"
+      "https://images.unsplash.com/photo-1634737581963-5a22ba471961?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aG9uZGElMjBhY2NvcmR8ZW58MHx8MHx8fDA%3D",
+      "https://shorturl.at/keQzX"
     ],
     tags: ["Good Value", "Minor Accident"],
   },
@@ -41,17 +43,18 @@ export const vehicleMockData: Entity[] = [
     id: "v3",
     name: "2021 Tesla Model 3 Long Range",
     type: "vehicle",
+    vin: "5YJ3E1EA1PF123456",
     make: "Tesla",
     model: "Model 3",
     year: 2021,
     mileage: 28000,
     price: 38500,
-    fuelEfficiency: 130, // MPGe
+    fuelEfficiency: 130,
     accidents: 0,
     majorRepairs: [],
     images: [
-      "https://images.unsplash.com/photo-1617788138017-80ad40651399?q=80&w=1470&auto=format",
-      "https://images.unsplash.com/photo-1617788138017-80ad40651399?q=80&w=1470&auto=format"
+      "https://shorturl.at/wcXLU",
+      "https://shorturl.at/wcXLU"
     ],
     tags: ["Electric", "High Tech", "Premium"],
   },
@@ -59,6 +62,7 @@ export const vehicleMockData: Entity[] = [
     id: "v4",
     name: "2018 Ford F-150 XLT",
     type: "vehicle",
+    vin: "1FTEW1EG8JFA12345",
     make: "Ford",
     model: "F-150",
     year: 2018,
@@ -68,8 +72,8 @@ export const vehicleMockData: Entity[] = [
     accidents: 2,
     majorRepairs: [{ year: 2021, description: "Engine rebuild" }],
     images: [
-      "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?q=80&w=1470&auto=format",
-      "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?q=80&w=1470&auto=format"
+      "https://rb.gy/lqvd8f",
+      "https://rb.gy/lqvd8f"
     ],
     tags: ["Truck", "Powerful", "High Capacity"],
   },
@@ -77,6 +81,7 @@ export const vehicleMockData: Entity[] = [
     id: "v5",
     name: "2022 Subaru Outback Wilderness",
     type: "vehicle",
+    vin: "4S4BTALC2N3123456",
     make: "Subaru",
     model: "Outback",
     year: 2022,
@@ -86,8 +91,8 @@ export const vehicleMockData: Entity[] = [
     accidents: 0,
     majorRepairs: [],
     images: [
-      "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?q=80&w=1470&auto=format",
-      "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?q=80&w=1470&auto=format"
+      "https://rb.gy/fqtik6",
+      "https://rb.gy/fqtik6"
     ],
     tags: ["AWD", "Like New", "Low Mileage"],
   },
@@ -95,6 +100,7 @@ export const vehicleMockData: Entity[] = [
     id: "v6",
     name: "2017 BMW 330i M Sport",
     type: "vehicle",
+    vin: "WBA8B3G5XJPA12345",
     make: "BMW",
     model: "3 Series",
     year: 2017,
@@ -104,14 +110,15 @@ export const vehicleMockData: Entity[] = [
     accidents: 1,
     majorRepairs: [{ year: 2020, description: "Electrical system repair" }],
     images: [
-      "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?q=80&w=1470&auto=format",
-      "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?q=80&w=1470&auto=format"
+      "https://rb.gy/ks37uk",
+      "https://rb.gy/ks37uk"
     ],
     tags: ["Luxury", "Sport", "German Engineering"],
   },
 ];
 
-export const propertyMockData: Entity[] = [
+
+export const propertyMockData: Property[] = [
   {
     id: "p1",
     name: "The Metropolitan - Unit 505",

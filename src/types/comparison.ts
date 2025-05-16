@@ -7,10 +7,12 @@ export interface Entity {
   tags: string[];
   images: string[];
   price: number;
+  vin?: string;
 }
 
 export interface Vehicle extends Entity {
   type: "vehicle";
+  vin: string;
   make: string;
   model: string;
   year: number;

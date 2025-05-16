@@ -1,9 +1,8 @@
-
-import { Entity } from "@/types/comparison";
+import { Entity, Vehicle, Property } from "@/types/comparison";
 import TagBadge from "./TagBadge";
 
 interface ComparisonCardProps {
-  entity: Entity;
+  entity: Vehicle | Property;
   highlighted?: boolean;
 }
 
@@ -15,6 +14,9 @@ const ComparisonCard = ({ entity, highlighted = false }: ComparisonCardProps) =>
         return (
           <>
             <div className="grid grid-cols-2 gap-2">
+              <div className="text-sm font-medium">VIN:</div>
+              <div className="text-sm font-mono">{entity.vin}</div>
+              
               <div className="text-sm font-medium">Make:</div>
               <div className="text-sm">{entity.make}</div>
               
@@ -89,52 +91,6 @@ const ComparisonCard = ({ entity, highlighted = false }: ComparisonCardProps) =>
           </>
         );
         
-      case 'person':
-        return (
-          <>
-            <div className="grid grid-cols-2 gap-2">
-              <div className="text-sm font-medium">Age:</div>
-              <div className="text-sm">{entity.age}</div>
-              
-              <div className="text-sm font-medium">Occupation:</div>
-              <div className="text-sm">{entity.occupation}</div>
-              
-              <div className="text-sm font-medium">Credit Score:</div>
-              <div className={`text-sm ${
-                entity.creditScore >= 750 ? "text-green-600" : 
-                entity.creditScore >= 650 ? "text-amber-600" : 
-                "text-red-600"
-              }`}>
-                {entity.creditScore}
-              </div>
-              
-              <div className="text-sm font-medium">Criminal Record:</div>
-              <div className={`text-sm ${entity.criminalRecord ? "text-red-600" : "text-green-600"}`}>
-                {entity.criminalRecord ? "Yes" : "No"}
-              </div>
-              
-              <div className="text-sm font-medium">Verified Identity:</div>
-              <div className={`text-sm ${entity.verifiedIdentity ? "text-green-600" : "text-red-600"}`}>
-                {entity.verifiedIdentity ? "Yes" : "No"}
-              </div>
-              
-              <div className="text-sm font-medium">Social Media:</div>
-              <div className="text-sm capitalize">{entity.socialMediaPresence}</div>
-            </div>
-            
-            <div className="mt-3">
-              <div className="text-sm font-medium">Employment:</div>
-              <ul className="list-disc pl-5 text-sm">
-                {entity.employmentHistory.map((job, index) => (
-                  <li key={index}>
-                    {job.employer} ({job.years} years)
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </>
-        );
-        
       default:
         return <div>Unknown entity type</div>;
     }
@@ -145,19 +101,11 @@ const ComparisonCard = ({ entity, highlighted = false }: ComparisonCardProps) =>
       highlighted ? "border-blue-500 ring-2 ring-blue-200" : "border-gray-200"
     }`}>
       <div className="aspect-square w-full bg-gray-100 rounded-md mb-4 overflow-hidden">
-        {entity.type === 'person' ? (
-          <img 
-            src={(entity as any).image || "/placeholder.svg"} 
-            alt={entity.name}
-            className="w-full h-full object-cover"
-          />
-        ) : (
-          <img 
-            src={(entity as any).images?.[0] || "/placeholder.svg"} 
-            alt={entity.name}
-            className="w-full h-full object-cover" 
-          />
-        )}
+        <img 
+          src={entity.images[0] || "/placeholder.svg"} 
+          alt={entity.name}
+          className="w-full h-full object-cover" 
+        />
       </div>
       
       <h3 className="text-lg font-semibold mb-1">{entity.name}</h3>
