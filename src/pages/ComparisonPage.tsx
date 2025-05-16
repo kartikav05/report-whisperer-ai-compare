@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Entity, EntityType, ComparisonSummary, RecommendationResult } from "@/types/comparison";
@@ -54,6 +53,19 @@ const ComparisonPage = () => {
   // Load entities from IDs
   useEffect(() => {
     if (entityIds.length > 0) {
+      // Enforce maximum of 3 entities
+      if (entityIds.length > 3) {
+        toast.error("Cannot compare more than 3 items", {
+          style: {
+            background: '#FEE2E2',
+            color: '#DC2626',
+            border: '1px solid #FCA5A5',
+          },
+        });
+        navigate('/');
+        return;
+      }
+
       const loadedEntities = entityIds
         .map(id => getEntityById(allEntities, id))
         .filter((entity): entity is Entity => entity !== undefined);
@@ -77,12 +89,24 @@ const ComparisonPage = () => {
           }
         } else {
           // Handle error - mixed types
-          toast.error("Cannot compare different types of entities");
+          toast.error("Cannot compare different types of entities", {
+            style: {
+              background: '#FEE2E2',
+              color: '#DC2626',
+              border: '1px solid #FCA5A5',
+            },
+          });
           navigate('/');
         }
       } else {
         // Handle error - no entities found
-        toast.error("No valid entities found for comparison");
+        toast.error("No valid entities found for comparison", {
+          style: {
+            background: '#FEE2E2',
+            color: '#DC2626',
+            border: '1px solid #FCA5A5',
+          },
+        });
         navigate('/');
       }
     } else {

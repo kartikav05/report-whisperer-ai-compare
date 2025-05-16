@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -31,10 +30,31 @@ const Index = () => {
 
   // Toggle item selection
   const toggleItemSelection = (id: string) => {
-    setSelectedItems(prev => ({
-      ...prev,
-      [id]: !prev[id]
-    }));
+    setSelectedItems(prev => {
+      const newSelection = { ...prev };
+      
+      // If item is already selected, deselect it
+      if (newSelection[id]) {
+        delete newSelection[id];
+        return newSelection;
+      }
+      
+      // If trying to select more than 3 items, show error
+      if (Object.values(newSelection).filter(Boolean).length >= 3) {
+        toast.error("You can only compare up to 3 items at a time", {
+          style: {
+            background: '#FEE2E2',
+            color: '#DC2626',
+            border: '1px solid #FCA5A5',
+          },
+        });
+        return prev;
+      }
+      
+      // Otherwise, select the item
+      newSelection[id] = true;
+      return newSelection;
+    });
   };
 
   // Count selected items
@@ -275,7 +295,7 @@ const Index = () => {
           className="px-8 py-6 text-lg shadow-lg"
           size="lg"
         >
-          Compare Selected ({selectedCount})
+          Compare Selected ({selectedCount}/3)
         </Button>
       </div>
     </div>
