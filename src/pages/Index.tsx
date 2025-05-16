@@ -260,35 +260,46 @@ const Index = () => {
         />
       ) : (
         <>
-          <div className="mb-8">
+          <div className="mb-12">
             <Tabs defaultValue="vehicle" onValueChange={(value) => setActiveTab(value as EntityType)}>
-              <TabsList className="grid w-full grid-cols-2 mb-6 p-1 bg-blue-50 rounded-lg">
-                <TabsTrigger 
-                  value="vehicle" 
-                  className="data-[state=active]:bg-white data-[state=active]:text-blue-600 data-[state=active]:shadow-sm transition-all duration-200 flex items-center gap-2 py-3"
-                >
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2">
-                    <path d="M14 16H9m11 0h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2h-1m-4-3H8a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h1m4 3v1a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-1m4-3H5a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h1"/>
-                  </svg>
-                  Vehicles
-                </TabsTrigger>
-                <TabsTrigger 
-                  value="property" 
-                  className="data-[state=active]:bg-white data-[state=active]:text-blue-600 data-[state=active]:shadow-sm transition-all duration-200 flex items-center gap-2 py-3"
-                >
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2">
-                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-                    <polyline points="9 22 9 12 15 12 15 22"/>
-                  </svg>
-                  Properties
-                </TabsTrigger>
-              </TabsList>
+              <div className="flex flex-col items-center mb-10">
+                <TabsList className="inline-flex h-16 items-center justify-center rounded-full bg-white p-1.5 shadow-lg border border-gray-100">
+                  <TabsTrigger 
+                    value="vehicle" 
+                    className="inline-flex items-center justify-center whitespace-nowrap rounded-full px-8 py-3 text-base font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-blue-600 data-[state=active]:text-white data-[state=active]:shadow-md hover:bg-blue-50/50 data-[state=active]:scale-105"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-3">
+                      <path d="M7 17m-2 0a2 2 0 1 0 4 0a2 2 0 1 0-4 0m10 0a2 2 0 1 0 4 0a2 2 0 1 0-4 0M5 17H3v-6l2-5h12l2 5v6h-2M5 17v-2h14v2"/>
+                    </svg>
+                    <span>Vehicles</span>
+                  </TabsTrigger>
+                  <TabsTrigger 
+                    value="property" 
+                    className="inline-flex items-center justify-center whitespace-nowrap rounded-full px-8 py-3 text-base font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-blue-600 data-[state=active]:text-white data-[state=active]:shadow-md hover:bg-blue-50/50 data-[state=active]:scale-105"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-3">
+                      <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                      <polyline points="9 22 9 12 15 12 15 22"/>
+                    </svg>
+                    <span>Properties</span>
+                  </TabsTrigger>
+                </TabsList>
+              </div>
               
               {/* Vehicle Tab */}
               <TabsContent value="vehicle" className="space-y-6">
-                <div className="bg-blue-50 rounded-lg p-4 mb-6">
-                  <h2 className="text-xl font-semibold text-blue-900 mb-2">Vehicle Reports</h2>
-                  <p className="text-blue-700">Browse and compare detailed vehicle reports including history, specifications, and condition.</p>
+                <div className="bg-white rounded-2xl p-8 mb-8 border border-gray-100 shadow-lg">
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className="bg-blue-100 p-3 rounded-xl">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-blue-600">
+                        <path d="M7 17m-2 0a2 2 0 1 0 4 0a2 2 0 1 0-4 0m10 0a2 2 0 1 0 4 0a2 2 0 1 0-4 0M5 17H3v-6l2-5h12l2 5v6h-2M5 17v-2h14v2"/>
+                      </svg>
+                    </div>
+                    <div>
+                      <h2 className="text-2xl font-bold text-gray-900 mb-2">Vehicle Reports</h2>
+                      <p className="text-gray-600 text-lg">Browse and compare detailed vehicle reports including history, specifications, and condition.</p>
+                    </div>
+                  </div>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {vehicleMockData.map((vehicle) => renderVehicleCard(vehicle))}
@@ -297,9 +308,19 @@ const Index = () => {
               
               {/* Property Tab */}
               <TabsContent value="property" className="space-y-6">
-                <div className="bg-blue-50 rounded-lg p-4 mb-6">
-                  <h2 className="text-xl font-semibold text-blue-900 mb-2">Property Reports</h2>
-                  <p className="text-blue-700">Explore and compare property reports with detailed information about location, features, and value.</p>
+                <div className="bg-white rounded-2xl p-8 mb-8 border border-gray-100 shadow-lg">
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className="bg-blue-100 p-3 rounded-xl">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-blue-600">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                        <polyline points="9 22 9 12 15 12 15 22"/>
+                      </svg>
+                    </div>
+                    <div>
+                      <h2 className="text-2xl font-bold text-gray-900 mb-2">Property Reports</h2>
+                      <p className="text-gray-600 text-lg">Explore and compare property reports with detailed information about location, features, and value.</p>
+                    </div>
+                  </div>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {propertyMockData.map((property) => renderPropertyCard(property))}
