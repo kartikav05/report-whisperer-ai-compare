@@ -1,69 +1,43 @@
+export type EntityType = "vehicle" | "property";
 
-export type EntityType = 'vehicle' | 'property' | 'person';
-
-export interface BaseEntity {
+export interface Entity {
   id: string;
   name: string;
   type: EntityType;
+  tags: string[];
+  images: string[];
+  price: number;
 }
 
-export interface Vehicle extends BaseEntity {
-  type: 'vehicle';
+export interface Vehicle extends Entity {
+  type: "vehicle";
   make: string;
   model: string;
   year: number;
   mileage: number;
-  price: number;
-  fuelEfficiency: number; // mpg
+  fuelEfficiency: number;
   accidents: number;
   majorRepairs: { year: number; description: string }[];
-  images: string[];
-  tags: string[];
 }
 
-export interface Property extends BaseEntity {
-  type: 'property';
+export interface Property extends Entity {
+  type: "property";
   address: string;
-  price: number;
   bedrooms: number;
   bathrooms: number;
   squareFeet: number;
   yearBuilt: number;
   neighborhood: string;
   schoolDistrict: string;
-  distanceToPublicTransport: number; // in miles
+  distanceToPublicTransport: number;
   renovated: boolean;
-  images: string[];
-  tags: string[];
 }
-
-export interface Person extends BaseEntity {
-  type: 'person';
-  age: number;
-  occupation: string;
-  creditScore: number;
-  criminalRecord: boolean;
-  verifiedIdentity: boolean;
-  socialMediaPresence: 'high' | 'medium' | 'low' | 'none';
-  employmentHistory: { years: number; employer: string }[];
-  image: string;
-  tags: string[];
-}
-
-export type Entity = Vehicle | Property | Person;
 
 export interface ComparisonSummary {
   similarities: string[];
   differences: string[];
   redFlags: string[];
   naturalLanguageSummary: string;
-}
-
-export interface QuestionnaireQuestion {
-  id: string;
-  question: string;
-  options: string[];
-  entityType: EntityType;
 }
 
 export interface RecommendationResult {
@@ -76,4 +50,11 @@ export interface RecommendationResult {
     strengths: string[];
     weaknesses: string[];
   }[];
+}
+
+export interface QuestionnaireQuestion {
+  id: string;
+  question: string;
+  options: string[];
+  entityType: EntityType;
 }
