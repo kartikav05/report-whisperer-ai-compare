@@ -13,7 +13,7 @@ export const vehicleMockData: Entity[] = [
     fuelEfficiency: 32,
     accidents: 0,
     majorRepairs: [],
-    images: ["/vehicles/toyota-camry.jpg", "/placeholder.svg"],
+    images: ["https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?q=80&w=1470&auto=format", "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?q=80&w=1470&auto=format"],
     tags: ["Low Mileage", "No Accidents", "Fuel Efficient"],
   },
   {
@@ -28,7 +28,7 @@ export const vehicleMockData: Entity[] = [
     fuelEfficiency: 30,
     accidents: 1,
     majorRepairs: [{ year: 2022, description: "Transmission repair" }],
-    images: ["/vehicles/honda-accord.jpg", "/placeholder.svg"],
+    images: ["https://images.unsplash.com/photo-1630990415883-7b7ef8461463?q=80&w=1470&auto=format", "https://images.unsplash.com/photo-1619767886558-efdc259cde1a?q=80&w=1374&auto=format"],
     tags: ["Good Value", "Minor Accident"],
   },
   {
@@ -43,7 +43,7 @@ export const vehicleMockData: Entity[] = [
     fuelEfficiency: 130, // MPGe
     accidents: 0,
     majorRepairs: [],
-    images: ["/vehicles/tesla-model3.jpg", "/placeholder.svg"],
+    images: ["https://images.unsplash.com/photo-1619734086067-24bf8889ea7d?q=80&w=1470&auto=format", "https://images.unsplash.com/photo-1561580125-028ee3bd62eb?q=80&w=1470&auto=format"],
     tags: ["Electric", "High Tech", "Premium"],
   },
   {
@@ -58,7 +58,7 @@ export const vehicleMockData: Entity[] = [
     fuelEfficiency: 22,
     accidents: 2,
     majorRepairs: [{ year: 2021, description: "Engine rebuild" }],
-    images: ["/vehicles/ford-f150.jpg", "/placeholder.svg"],
+    images: ["https://images.unsplash.com/photo-1583267746897-2cf415887172?q=80&w=1470&auto=format", "https://images.unsplash.com/photo-1622987048379-bd7b9a6ac5a5?q=80&w=1470&auto=format"],
     tags: ["Truck", "Powerful", "High Capacity"],
   },
   {
@@ -73,7 +73,7 @@ export const vehicleMockData: Entity[] = [
     fuelEfficiency: 29,
     accidents: 0,
     majorRepairs: [],
-    images: ["/vehicles/subaru-outback.jpg", "/placeholder.svg"],
+    images: ["https://images.unsplash.com/photo-1589307004173-3c95204d00ee?q=80&w=1374&auto=format", "https://images.unsplash.com/photo-1665764524136-2b9853c88bc9?q=80&w=1470&auto=format"],
     tags: ["AWD", "Like New", "Low Mileage"],
   },
   {
@@ -88,7 +88,7 @@ export const vehicleMockData: Entity[] = [
     fuelEfficiency: 27,
     accidents: 1,
     majorRepairs: [{ year: 2020, description: "Electrical system repair" }],
-    images: ["/vehicles/bmw-3series.jpg", "/placeholder.svg"],
+    images: ["https://images.unsplash.com/photo-1556800572-1b8aeef2c54f?q=80&w=1470&auto=format", "https://images.unsplash.com/photo-1580273916550-e323be2ae537?q=80&w=1528&auto=format"],
     tags: ["Luxury", "Sport", "German Engineering"],
   },
 ];
@@ -108,7 +108,7 @@ export const propertyMockData: Entity[] = [
     schoolDistrict: "Metro Central",
     distanceToPublicTransport: 0.2,
     renovated: false,
-    images: ["/properties/downtown-condo.jpg", "/placeholder.svg"],
+    images: ["https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?q=80&w=1470&auto=format", "https://images.unsplash.com/photo-1533779283484-8ad4940aa3a8?q=80&w=1470&auto=format"],
     tags: ["Urban", "New Construction", "Close to Transit"],
   },
   {
@@ -125,7 +125,7 @@ export const propertyMockData: Entity[] = [
     schoolDistrict: "Pleasant Valley",
     distanceToPublicTransport: 1.8,
     renovated: true,
-    images: ["/properties/suburban-home.jpg", "/placeholder.svg"],
+    images: ["https://images.unsplash.com/photo-1564013799919-ab600027ffc6?q=80&w=1470&auto=format", "https://images.unsplash.com/photo-1576941089067-2de3c901e126?q=80&w=1506&auto=format"],
     tags: ["Family Friendly", "Renovated", "Good Schools"],
   },
   {
@@ -142,7 +142,7 @@ export const propertyMockData: Entity[] = [
     schoolDistrict: "Rural County",
     distanceToPublicTransport: 5.5,
     renovated: false,
-    images: ["/properties/countryside-home.jpg", "/placeholder.svg"],
+    images: ["https://images.unsplash.com/photo-1542889601-399c4f3a8402?q=80&w=1470&auto=format", "https://images.unsplash.com/photo-1598228723793-52759bba239c?q=80&w=1374&auto=format"],
     tags: ["Secluded", "Large Lot", "Nature Views"],
   },
   {
@@ -159,7 +159,7 @@ export const propertyMockData: Entity[] = [
     schoolDistrict: "Coastal Unified",
     distanceToPublicTransport: 3.2,
     renovated: true,
-    images: ["/properties/beach-house.jpg", "/placeholder.svg"],
+    images: ["https://images.unsplash.com/photo-1528913775512-624d24b27b96?q=80&w=1374&auto=format", "https://images.unsplash.com/photo-1543071220-6ee5bf71a54e?q=80&w=1374&auto=format"],
     tags: ["Waterfront", "Luxury", "Private Beach"],
   },
   {
@@ -176,7 +176,7 @@ export const propertyMockData: Entity[] = [
     schoolDistrict: "Metro Central",
     distanceToPublicTransport: 0.1,
     renovated: true,
-    images: ["/properties/urban-loft.jpg", "/placeholder.svg"],
+    images: ["https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=1470&auto=format", "https://images.unsplash.com/photo-1505873242700-f289a29e1e0f?q=80&w=1476&auto=format"],
     tags: ["Loft", "High Ceiling", "Arts District"],
   },
   {
@@ -193,7 +193,7 @@ export const propertyMockData: Entity[] = [
     schoolDistrict: "Mountain Valley",
     distanceToPublicTransport: 8.5,
     renovated: false,
-    images: ["/properties/mountain-cabin.jpg", "/placeholder.svg"],
+    images: ["https://images.unsplash.com/photo-1542718610-a1d656d1884c?q=80&w=1470&auto=format", "https://images.unsplash.com/photo-1470770903676-69b98201ea1c?q=80&w=1470&auto=format"],
     tags: ["Mountain Views", "Fireplace", "Hiking Trails"],
   },
 ];
@@ -213,7 +213,7 @@ export const personMockData: Entity[] = [
       { years: 5, employer: "Tech Solutions Inc." },
       { years: 3, employer: "Digital Innovations" },
     ],
-    image: "/people/jane-doe.jpg",
+    image: "https://images.unsplash.com/photo-1499952127939-9bbf5af6c51c?q=80&w=1476&auto=format",
     tags: ["Excellent Credit", "Stable Employment", "Verified"],
   },
   {
@@ -230,7 +230,7 @@ export const personMockData: Entity[] = [
       { years: 2, employer: "Market Leaders" },
       { years: 1, employer: "Growth Hackers" },
     ],
-    image: "/people/john-smith.jpg",
+    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1374&auto=format",
     tags: ["Good Credit", "Job Hopper", "Active Online"],
   },
   {
@@ -247,7 +247,7 @@ export const personMockData: Entity[] = [
       { years: 8, employer: "Build Right Construction" },
       { years: 4, employer: "Solid Foundations Inc." },
     ],
-    image: "/people/michael-johnson.jpg",
+    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=1374&auto=format",
     tags: ["Fair Credit", "Criminal Record", "Long Employment"],
   },
   {
@@ -264,7 +264,7 @@ export const personMockData: Entity[] = [
       { years: 10, employer: "City General Hospital" },
       { years: 2, employer: "Health Partners Group" },
     ],
-    image: "/people/sarah-williams.jpg",
+    image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=1398&auto=format",
     tags: ["Excellent Credit", "Healthcare Professional", "Stable Career"],
   },
   {
@@ -282,7 +282,7 @@ export const personMockData: Entity[] = [
       { years: 5, employer: "Financial Strategies Inc." },
       { years: 3, employer: "Wealth Management Partners" },
     ],
-    image: "/people/robert-chen.jpg",
+    image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=1374&auto=format",
     tags: ["Finance Expert", "Good Credit", "Stable Income"],
   },
   {
@@ -299,7 +299,7 @@ export const personMockData: Entity[] = [
       { years: 4, employer: "Savor Restaurant (Owner)" },
       { years: 3, employer: "Taste of Italy Restaurant" },
     ],
-    image: "/people/maria-rodriguez.jpg",
+    image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1374&auto=format",
     tags: ["Business Owner", "Entrepreneur", "Social Media Influencer"],
   },
 ];
