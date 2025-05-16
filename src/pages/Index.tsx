@@ -37,13 +37,13 @@ const Index = () => {
   const toggleItemSelection = (id: string) => {
     setSelectedItems(prev => {
       const newSelection = { ...prev };
-      
+
       // If item is already selected, deselect it
       if (newSelection[id]) {
         delete newSelection[id];
         return newSelection;
       }
-      
+
       // If trying to select more than 3 items, show error
       if (Object.values(newSelection).filter(Boolean).length >= 3) {
         toast.error("You can only compare up to 3 items at a time", {
@@ -55,7 +55,7 @@ const Index = () => {
         });
         return prev;
       }
-      
+
       // Otherwise, select the item
       newSelection[id] = true;
       return newSelection;
@@ -90,7 +90,7 @@ const Index = () => {
     if (report) {
       setSelectedItems(prev => {
         const newSelection = { ...prev };
-        
+
         // If trying to select more than 3 items, show error
         if (Object.values(newSelection).filter(Boolean).length >= 3) {
           toast.error("You can only compare up to 3 items at a time", {
@@ -102,12 +102,12 @@ const Index = () => {
           });
           return prev;
         }
-        
+
         // Add the report to selection
         newSelection[report.id] = true;
         return newSelection;
       });
-      
+
       setSelectedReport(null);
       setShowSearch(false); // Return to main view
       toast.success("Report added to comparison");
@@ -125,14 +125,14 @@ const Index = () => {
       <Card key={vehicle.id} className="overflow-hidden border">
         <div className="relative">
           <div className="absolute top-3 left-3 z-10">
-            <Checkbox 
+            <Checkbox
               checked={selectedItems[vehicle.id] || false}
               onCheckedChange={() => toggleItemSelection(vehicle.id)}
               className="h-5 w-5 border-2 bg-white"
             />
           </div>
           <div className="h-48 bg-gray-100">
-            <img 
+            <img
               src={vehicle.images[0] || "/placeholder.svg"}
               alt={vehicle.name}
               className="w-full h-full object-cover"
@@ -175,14 +175,14 @@ const Index = () => {
       <Card key={property.id} className="overflow-hidden border">
         <div className="relative">
           <div className="absolute top-3 left-3 z-10">
-            <Checkbox 
+            <Checkbox
               checked={selectedItems[property.id] || false}
               onCheckedChange={() => toggleItemSelection(property.id)}
               className="h-5 w-5 border-2 bg-white"
             />
           </div>
           <div className="h-48 bg-gray-100">
-            <img 
+            <img
               src={property.images[0] || "/placeholder.svg"}
               alt={property.name}
               className="w-full h-full object-cover"
@@ -218,7 +218,7 @@ const Index = () => {
   return (
     <Layout>
       <div className="container mx-auto py-8 px-4">
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
@@ -232,7 +232,7 @@ const Index = () => {
             and get AI-powered recommendations tailored to your needs.
           </p>
 
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.2, duration: 0.5 }}
@@ -242,9 +242,9 @@ const Index = () => {
               <div className="flex items-start">
                 <div className="mr-3 mt-1 text-blue-500">
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <circle cx="12" cy="12" r="10"/>
-                    <path d="M12 16v-4"/>
-                    <path d="M12 8h.01"/>
+                    <circle cx="12" cy="12" r="10" />
+                    <path d="M12 16v-4" />
+                    <path d="M12 8h.01" />
                   </svg>
                 </div>
                 <div className="text-left text-blue-700">
@@ -273,7 +273,7 @@ const Index = () => {
             </Button>
           </motion.div>
         </motion.div>
-        
+
         <AnimatePresence mode="wait">
           {showSearch ? (
             <motion.div
@@ -283,7 +283,7 @@ const Index = () => {
               exit={{ opacity: 0, x: -20 }}
               transition={{ duration: 0.3 }}
             >
-              <SearchReport 
+              <SearchReport
                 onAddToComparison={handleAddToComparison}
                 onViewReport={handleViewReport}
               />
@@ -300,31 +300,31 @@ const Index = () => {
                 <Tabs defaultValue="vehicle" onValueChange={(value) => setActiveTab(value as EntityType)}>
                   <div className="flex flex-col items-center mb-10">
                     <TabsList className="inline-flex h-16 items-center justify-center rounded-full bg-white p-1.5 shadow-lg border border-gray-100">
-                      <TabsTrigger 
-                        value="vehicle" 
+                      <TabsTrigger
+                        value="vehicle"
                         className="inline-flex items-center justify-center whitespace-nowrap rounded-full px-8 py-3 text-base font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-blue-600 data-[state=active]:text-white data-[state=active]:shadow-md hover:bg-blue-50/50 data-[state=active]:scale-105"
                       >
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-3">
-                          <path d="M7 17m-2 0a2 2 0 1 0 4 0a2 2 0 1 0-4 0m10 0a2 2 0 1 0 4 0a2 2 0 1 0-4 0M5 17H3v-6l2-5h12l2 5v6h-2M5 17v-2h14v2"/>
+                          <path d="M7 17m-2 0a2 2 0 1 0 4 0a2 2 0 1 0-4 0m10 0a2 2 0 1 0 4 0a2 2 0 1 0-4 0M5 17H3v-6l2-5h12l2 5v6h-2M5 17v-2h14v2" />
                         </svg>
                         <span>Vehicles</span>
                       </TabsTrigger>
-                      <TabsTrigger 
-                        value="property" 
+                      <TabsTrigger
+                        value="property"
                         className="inline-flex items-center justify-center whitespace-nowrap rounded-full px-8 py-3 text-base font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-blue-600 data-[state=active]:text-white data-[state=active]:shadow-md hover:bg-blue-50/50 data-[state=active]:scale-105"
                       >
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-3">
-                          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-                          <polyline points="9 22 9 12 15 12 15 22"/>
+                          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                          <polyline points="9 22 9 12 15 12 15 22" />
                         </svg>
                         <span>Properties</span>
                       </TabsTrigger>
                     </TabsList>
                   </div>
-                  
+
                   {/* Vehicle Tab */}
                   <TabsContent value="vehicle" className="space-y-6">
-                    <motion.div 
+                    <motion.div
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.5 }}
@@ -333,7 +333,7 @@ const Index = () => {
                       <div className="flex items-center gap-4 mb-4">
                         <div className="bg-blue-100 p-3 rounded-xl">
                           <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-blue-600">
-                            <path d="M7 17m-2 0a2 2 0 1 0 4 0a2 2 0 1 0-4 0m10 0a2 2 0 1 0 4 0a2 2 0 1 0-4 0M5 17H3v-6l2-5h12l2 5v6h-2M5 17v-2h14v2"/>
+                            <path d="M7 17m-2 0a2 2 0 1 0 4 0a2 2 0 1 0-4 0m10 0a2 2 0 1 0 4 0a2 2 0 1 0-4 0M5 17H3v-6l2-5h12l2 5v6h-2M5 17v-2h14v2" />
                           </svg>
                         </div>
                         <div>
@@ -342,7 +342,7 @@ const Index = () => {
                         </div>
                       </div>
                     </motion.div>
-                    <motion.div 
+                    <motion.div
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       transition={{ delay: 0.2, duration: 0.5 }}
@@ -351,10 +351,10 @@ const Index = () => {
                       {vehicleMockData.map((vehicle) => renderVehicleCard(vehicle as Vehicle))}
                     </motion.div>
                   </TabsContent>
-                  
+
                   {/* Property Tab */}
                   <TabsContent value="property" className="space-y-6">
-                    <motion.div 
+                    <motion.div
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.5 }}
@@ -363,8 +363,8 @@ const Index = () => {
                       <div className="flex items-center gap-4 mb-4">
                         <div className="bg-blue-100 p-3 rounded-xl">
                           <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-blue-600">
-                            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-                            <polyline points="9 22 9 12 15 12 15 22"/>
+                            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                            <polyline points="9 22 9 12 15 12 15 22" />
                           </svg>
                         </div>
                         <div>
@@ -373,7 +373,7 @@ const Index = () => {
                         </div>
                       </div>
                     </motion.div>
-                    <motion.div 
+                    <motion.div
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       transition={{ delay: 0.2, duration: 0.5 }}
@@ -384,34 +384,35 @@ const Index = () => {
                   </TabsContent>
                 </Tabs>
               </div>
-              
-              {/* Compare Button */}
-              <motion.div 
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4, duration: 0.5 }}
-                className="fixed bottom-6 left-0 right-0 flex justify-center z-40"
-              >
-                <Button 
-                  onClick={handleCompare}
-                  disabled={selectedCount < 2}
-                  className="px-8 py-6 text-lg shadow-lg"
-                  size="lg"
-                >
-                  Compare Selected ({selectedCount}/3)
-                </Button>
-              </motion.div>
             </motion.div>
           )}
         </AnimatePresence>
+  
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4, duration: 0.5 }}
+          className="fixed bottom-6 left-0 right-0 flex justify-center z-40"
+        >
+          <Button
+            onClick={handleCompare}
+            disabled={selectedCount < 2}
+            className="px-8 py-6 text-lg shadow-lg bg-blue-600 hover:bg-blue-700 text-white"
+            size="lg"
+          >
+            Compare Selected ({selectedCount}/3)
+          </Button>
+        </motion.div>
 
         {/* Report View Modal */}
-        <ReportViewModal
-          isOpen={!!selectedReport}
-          onClose={() => setSelectedReport(null)}
-          report={selectedReport}
-          onAddToComparison={handleAddToComparison}
-        />
+        {selectedReport && (
+          <ReportViewModal
+            isOpen={!!selectedReport}
+            onClose={() => setSelectedReport(null)}
+            report={selectedReport}
+            onAddToComparison={handleAddToComparison}
+          />
+        )}
       </div>
     </Layout>
   );
