@@ -17,7 +17,7 @@ import ComparisonCard from "@/components/ComparisonCard";
 import AISummary from "@/components/AISummary";
 import QuestionnaireSurvey from "@/components/QuestionnaireSurvey";
 import RecommendationResultComponent from "@/components/RecommendationResult";
-import ComparisonChart from "@/components/Charts/ComparisonChart";
+import ChartSelector from "@/components/Charts/ChartSelector";
 import { toast } from "sonner";
 import { motion } from "framer-motion";
 
@@ -295,9 +295,39 @@ const ComparisonPage = () => {
               transition={{ duration: 0.5, delay: 0.3 }}
               className="bg-white border rounded-xl p-8 shadow-sm mb-12 hover:shadow-md transition-shadow"
             >
-              <h2 className="text-2xl font-semibold mb-6 text-gray-800">Visual Comparison</h2>
+              <div className="flex items-center gap-4 mb-6">
+                <div className="bg-blue-100 p-3 rounded-xl">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-blue-600">
+                    <path d="M3 3v18h18"/>
+                    <path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3"/>
+                  </svg>
+                </div>
+                <div>
+                  <h2 className="text-2xl font-semibold text-gray-800">Visual Comparison</h2>
+                  <p className="text-gray-600 mt-1">Explore different visualizations to compare {entityType === 'vehicle' ? 'vehicles' : 'properties'}</p>
+                </div>
+              </div>
+              
               <div className="bg-gray-50 rounded-lg p-6">
-                <ComparisonChart data={chartData} />
+                <ChartSelector data={chartData} />
+              </div>
+
+              <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="bg-blue-50 rounded-lg p-4">
+                  <h3 className="font-medium text-blue-800 mb-2">💡 Pro Tip</h3>
+                  <p className="text-sm text-blue-700">
+                    Try different chart types to better understand the comparison. Each visualization offers a unique perspective on the data.
+                  </p>
+                </div>
+                <div className="bg-purple-50 rounded-lg p-4">
+                  <h3 className="font-medium text-purple-800 mb-2">📊 Chart Guide</h3>
+                  <ul className="text-sm text-purple-700 space-y-1">
+                    <li>• Bar Chart: Compare individual metrics</li>
+                    <li>• Line Chart: See trends across metrics</li>
+                    <li>• Radar Chart: Compare multiple dimensions</li>
+                    <li>• Area Chart: Visualize cumulative values</li>
+                  </ul>
+                </div>
               </div>
             </motion.div>
           )}
@@ -310,7 +340,7 @@ const ComparisonPage = () => {
               transition={{ duration: 0.5, delay: 0.4 }}
               className="mb-12"
             >
-              <AISummary summary={comparisonSummary} />
+              <AISummary summary={comparisonSummary} entities={entities} />
             </motion.div>
           )}
           
