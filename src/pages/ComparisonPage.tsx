@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { Entity, EntityType, ComparisonSummary, RecommendationResult } from "@/types/comparison";
+import { Entity, EntityType, ComparisonSummary, RecommendationResult, Vehicle, Property } from "@/types/comparison";
 import { 
   allEntities, 
   questionnaireQuestions,
@@ -11,6 +11,7 @@ import {
   generateRecommendation,
 } from "@/utils/comparisonUtils";
 
+import Layout from "@/components/Layout";
 import ComparisonHeader from "@/components/ComparisonHeader";
 import ComparisonCard from "@/components/ComparisonCard";
 import AISummary from "@/components/AISummary";
@@ -18,6 +19,7 @@ import QuestionnaireSurvey from "@/components/QuestionnaireSurvey";
 import RecommendationResultComponent from "@/components/RecommendationResult";
 import ComparisonChart from "@/components/Charts/ComparisonChart";
 import { toast } from "sonner";
+import { motion } from "framer-motion";
 
 const ComparisonPage = () => {
   const location = useLocation();
@@ -28,7 +30,7 @@ const ComparisonPage = () => {
   const idsParam = searchParams.get("ids");
   const entityIds = idsParam ? idsParam.split(",") : [];
   
-  const [entities, setEntities] = useState<Entity[]>([]);
+  const [entities, setEntities] = useState<(Vehicle | Property)[]>([]);
   const [entityType, setEntityType] = useState<EntityType | null>(null);
   const [comparisonSummary, setComparisonSummary] = useState<ComparisonSummary | null>(null);
   const [showQuestionnaire, setShowQuestionnaire] = useState(false);
@@ -68,7 +70,7 @@ const ComparisonPage = () => {
 
       const loadedEntities = entityIds
         .map(id => getEntityById(allEntities, id))
-        .filter((entity): entity is Entity => entity !== undefined);
+        .filter((entity): entity is Vehicle | Property => entity !== undefined);
         
       if (loadedEntities.length > 0) {
         // Check if all entities are of the same type
@@ -116,7 +118,7 @@ const ComparisonPage = () => {
   }, [entityIds, navigate]);
   
   // Generate chart data for visual comparison
-  const generateChartData = (entitiesToCompare: Entity[]) => {
+  const generateChartData = (entitiesToCompare: (Vehicle | Property)[]) => {
     if (entitiesToCompare.length !== 2) return;
     
     const [entity1, entity2] = entitiesToCompare;
@@ -124,8 +126,8 @@ const ComparisonPage = () => {
     if (entity1.type === 'vehicle' && entity2.type === 'vehicle') {
       setChartData([
         {
-          name: "Price ($)",
-          entity1: entity1.price / 1000, // Scaled for display
+          name: "Price ($K)",
+          entity1: entity1.price / 1000,
           entity2: entity2.price / 1000,
           entity1Name: entity1.name,
           entity2Name: entity2.name,
@@ -144,6 +146,34 @@ const ComparisonPage = () => {
           entity1Name: entity1.name,
           entity2Name: entity2.name,
         },
+        {
+          name: "Horsepower",
+          entity1: entity1.horsepower,
+          entity2: entity2.horsepower,
+          entity1Name: entity1.name,
+          entity2Name: entity2.name,
+        },
+        {
+          name: "Safety Rating",
+          entity1: entity1.safetyRating,
+          entity2: entity2.safetyRating,
+          entity1Name: entity1.name,
+          entity2Name: entity2.name,
+        },
+        {
+          name: "Maintenance Cost ($)",
+          entity1: entity1.maintenanceCost,
+          entity2: entity2.maintenanceCost,
+          entity1Name: entity1.name,
+          entity2Name: entity2.name,
+        },
+        {
+          name: "Resale Value (%)",
+          entity1: entity1.resaleValue,
+          entity2: entity2.resaleValue,
+          entity1Name: entity1.name,
+          entity2Name: entity2.name,
+        }
       ]);
     } else if (entity1.type === 'property' && entity2.type === 'property') {
       setChartData([
@@ -168,23 +198,41 @@ const ComparisonPage = () => {
           entity1Name: entity1.name,
           entity2Name: entity2.name,
         },
-      ]);
-    } else if (entity1.type === 'person' && entity2.type === 'person') {
-      setChartData([
         {
-          name: "Credit Score",
-          entity1: entity1.creditScore,
-          entity2: entity2.creditScore,
+          name: "Energy Efficiency",
+          entity1: entity1.energyEfficiency,
+          entity2: entity2.energyEfficiency,
           entity1Name: entity1.name,
           entity2Name: entity2.name,
         },
         {
-          name: "Employment (Years)",
-          entity1: entity1.employmentHistory.reduce((sum, job) => sum + job.years, 0),
-          entity2: entity2.employmentHistory.reduce((sum, job) => sum + job.years, 0),
+          name: "Walk Score",
+          entity1: entity1.walkScore,
+          entity2: entity2.walkScore,
           entity1Name: entity1.name,
           entity2Name: entity2.name,
         },
+        {
+          name: "Transit Score",
+          entity1: entity1.transitScore,
+          entity2: entity2.transitScore,
+          entity1Name: entity1.name,
+          entity2Name: entity2.name,
+        },
+        {
+          name: "Appreciation Rate (%)",
+          entity1: entity1.appreciationRate,
+          entity2: entity2.appreciationRate,
+          entity1Name: entity1.name,
+          entity2Name: entity2.name,
+        },
+        {
+          name: "Rental Potential ($)",
+          entity1: entity1.rentalPotential,
+          entity2: entity2.rentalPotential,
+          entity1Name: entity1.name,
+          entity2Name: entity2.name,
+        }
       ]);
     }
   };
@@ -207,69 +255,112 @@ const ComparisonPage = () => {
   const relevantQuestions = questionnaireQuestions.filter(q => q.entityType === entityType);
   
   return (
-    <div className="container mx-auto py-8 px-4">
-      <ComparisonHeader 
-        entityType={entityType}
-        entityCount={entities.length}
-        onReset={handleReset}
-      />
-      
-      {/* Comparison Cards Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-        {entities.map((entity) => (
-          <ComparisonCard 
-            key={entity.id} 
-            entity={entity} 
-            highlighted={recommendation?.recommendedEntityId === entity.id}
-          />
-        ))}
-      </div>
-      
-      {/* Visual Comparison Charts */}
-      {chartData.length > 0 && (
-        <div className="bg-white border rounded-lg p-6 shadow-sm mb-8">
-          <h2 className="text-xl font-semibold mb-4">Visual Comparison</h2>
-          <ComparisonChart data={chartData} />
-        </div>
-      )}
-      
-      {/* AI Summary */}
-      {comparisonSummary && (
-        <div className="mb-8">
-          <AISummary summary={comparisonSummary} />
-        </div>
-      )}
-      
-      {/* Questionnaire or Recommendation */}
-      {!recommendation && !showQuestionnaire && (
-        <div className="flex justify-center mb-8">
-          <button 
-            className="bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-700 transition-colors"
-            onClick={() => setShowQuestionnaire(true)}
+    <Layout>
+      <div className="container mx-auto py-8 px-4">
+        <ComparisonHeader 
+          entityType={entityType}
+          entityCount={entities.length}
+          onReset={handleReset}
+        />
+        
+        {/* Main Content */}
+        <div className="max-w-7xl mx-auto">
+          {/* Comparison Cards Grid */}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12"
           >
-            Help Me Decide
-          </button>
+            {entities.map((entity, index) => (
+              <motion.div
+                key={entity.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+              >
+                <ComparisonCard 
+                  entity={entity} 
+                  highlighted={recommendation?.recommendedEntityId === entity.id}
+                />
+              </motion.div>
+            ))}
+          </motion.div>
+          
+          {/* Visual Comparison Charts */}
+          {chartData.length > 0 && (
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              className="bg-white border rounded-xl p-8 shadow-sm mb-12 hover:shadow-md transition-shadow"
+            >
+              <h2 className="text-2xl font-semibold mb-6 text-gray-800">Visual Comparison</h2>
+              <div className="bg-gray-50 rounded-lg p-6">
+                <ComparisonChart data={chartData} />
+              </div>
+            </motion.div>
+          )}
+          
+          {/* AI Summary */}
+          {comparisonSummary && (
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+              className="mb-12"
+            >
+              <AISummary summary={comparisonSummary} />
+            </motion.div>
+          )}
+          
+          {/* Questionnaire or Recommendation */}
+          {!recommendation && !showQuestionnaire && (
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.5 }}
+              className="flex justify-center mb-12"
+            >
+              <button 
+                className="bg-blue-600 text-white px-8 py-4 rounded-lg hover:bg-blue-700 transition-colors shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 font-medium text-lg"
+                onClick={() => setShowQuestionnaire(true)}
+              >
+                Help Me Decide
+              </button>
+            </motion.div>
+          )}
+          
+          {showQuestionnaire && (
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="mb-12"
+            >
+              <QuestionnaireSurvey 
+                questions={relevantQuestions} 
+                onComplete={handleQuestionnaireComplete}
+              />
+            </motion.div>
+          )}
+          
+          {recommendation && (
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="mb-12"
+            >
+              <RecommendationResultComponent 
+                result={recommendation}
+                entities={entities}
+              />
+            </motion.div>
+          )}
         </div>
-      )}
-      
-      {showQuestionnaire && (
-        <div className="mb-8">
-          <QuestionnaireSurvey 
-            questions={relevantQuestions} 
-            onComplete={handleQuestionnaireComplete}
-          />
-        </div>
-      )}
-      
-      {recommendation && (
-        <div className="mb-8">
-          <RecommendationResultComponent 
-            result={recommendation}
-            entities={entities}
-          />
-        </div>
-      )}
-    </div>
+      </div>
+    </Layout>
   );
 };
 
