@@ -6,7 +6,7 @@ import { Card } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { vehicleMockData, propertyMockData, personMockData } from "@/data/mockData";
-import { Entity, EntityType } from "@/types/comparison";
+import { Entity, EntityType, Vehicle, Property, Person } from "@/types/comparison";
 import TagBadge from "@/components/TagBadge";
 import { toast } from "sonner";
 

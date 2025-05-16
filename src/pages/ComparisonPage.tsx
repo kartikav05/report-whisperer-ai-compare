@@ -16,7 +16,7 @@ import ComparisonHeader from "@/components/ComparisonHeader";
 import ComparisonCard from "@/components/ComparisonCard";
 import AISummary from "@/components/AISummary";
 import QuestionnaireSurvey from "@/components/QuestionnaireSurvey";
-import RecommendationResult from "@/components/RecommendationResult";
+import RecommendationResultComponent from "@/components/RecommendationResult";
 import ComparisonChart from "@/components/Charts/ComparisonChart";
 import { toast } from "sonner";
 
@@ -239,7 +239,7 @@ const ComparisonPage = () => {
       
       {recommendation && (
         <div className="mb-8">
-          <RecommendationResult 
+          <RecommendationResultComponent 
             result={recommendation}
             entities={entities}
           />
